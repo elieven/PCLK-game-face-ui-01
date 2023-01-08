@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.tsx",
   "dependencies": {
+    "@heroicons/react": "^2.0.13",
     "clsx": "1.2.1",
     "dayjs": "1.11.7",
     "react": "17.0.2",
