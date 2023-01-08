@@ -113,6 +113,21 @@ const Stat = ({ label, value }: { label?: string; value: string }) => {
   );
 };
 
+// temporary implementation to save my fingers
+const StatCell = ({
+  stat,
+  children
+}: {
+  stat: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <div style={{ gridArea: stat }} className="flex flex-col items-center">
+      {children}
+    </div>
+  );
+};
+
 const StatControl = ({ name }: { name: string }) => {
   const btnClassName =
     'bg-blue-500 w-8 h-8 font-bold flex items-center justify-center rounded-full text-white';
@@ -153,42 +168,17 @@ const StatControl = ({ name }: { name: string }) => {
   );
 };
 
+const getftime = () => dayjs(new Date().toISOString()).format('hh:mm:ss');
+
 const CurrentTimeIndicator = () => {
-  const [time, setTime] = useState(
-    dayjs(new Date().toISOString()).format('hh:mm:ss')
-  );
+  const [time, setTime] = useState(getftime());
+
   useEffect(() => {
-    const interval = setInterval(() =>
-      setTime(dayjs(new Date().toISOString()).format('hh:mm:ss'))
-    );
+    const interval = setInterval(() => setTime(getftime()));
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <ScalableSVGText
-      text={time}
-      className="absolute bg-green-200 inset-0 w-full h-full object-contain"
-    />
-  );
-};
-
-const RemainingRoundTimeIndicator = () => {
-  const [time, setTime] = useState(
-    dayjs(new Date().toISOString()).format('mm:ss')
-  );
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(dayjs(new Date().toISOString()).format('mm:ss'));
-    });
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <ScalableSVGText
-      text={time}
-      className="absolute bg-green-200 inset-0 w-full h-full object-contain"
-    />
-  );
+  return <Stat label={areaContent.currentTime.label} value={time} />;
 };
 
 const ControlsPanel = () => {
@@ -262,15 +252,31 @@ const PokerGameFace = () => {
   return (
     <div className="h-screen flex flex-col p-4 space-y-4 font-bold">
       <div className="grid poker-grid gap-4 h-full">
-        {Object.entries(areaContent).map(([key, value]) => (
-          <div
-            key={key}
-            style={{ gridArea: key }}
-            className="flex flex-col items-center"
-          >
-            <Stat label={value.label} value={value.text} />
-          </div>
-        ))}
+        {Object.entries(areaContent).map(([key, value]) => {
+          switch (key) {
+            case 'title': {
+              return (
+                <StatCell stat={key} key={key}>
+                  <Stat value={value.text} />
+                </StatCell>
+              );
+            }
+            case 'currentTime': {
+              return (
+                <StatCell stat={key} key={key}>
+                  <CurrentTimeIndicator />
+                </StatCell>
+              );
+            }
+            default: {
+              return (
+                <StatCell stat={key} key={key}>
+                  <Stat label={value.label} value={value.text} />
+                </StatCell>
+              );
+            }
+          }
+        })}
       </div>
       <ControlsPanel />
     </div>
