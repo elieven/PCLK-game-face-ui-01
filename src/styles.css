@@ -1,0 +1,24 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.poker-grid {
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-areas:
+    'title   title     title              title                            title              title              title       title'
+    'left    total     level              blind                            blind              ante               currentTime currentTime'
+    'unique  reentries nextLevel          nextBlind                    nextBlind          nextAnte           elapsedTime elapsedTime'
+    'payouts payouts   remainingRoundTime remainingRoundTime  remainingRoundTime remainingRoundTime nextBreak   nextBreak'
+    'payouts payouts   remainingRoundTime remainingRoundTime  remainingRoundTime remainingRoundTime avgStack    avgStack'
+    'payouts payouts   remainingRoundTime remainingRoundTime  remainingRoundTime remainingRoundTime totalChips  totalChips';
+}
+
+.poker-grid > div {
+  background: #eee;
+}
+
+.poker-grid > div > div {
+  min-width: 0;
+}
