@@ -1,8 +1,9 @@
-import './styles.css';
-import ScalableSVGText from './components/NewScalableSVGText';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import './styles.css';
+
+import ScalableSVGText from './components/NewScalableSVGText';
 
 dayjs.extend(duration);
 
@@ -93,6 +94,24 @@ const areaContent = {
 // make controls and perhaps title also separate from teh rest of stats
 // since at least the controls do not scale in any way at all and will
 // always require the amount of space that they do
+
+const Stat = ({ label, value }: { label?: string; value: string }) => {
+  return (
+    <div className="flex flex-col items-center bg-pink-200 w-full h-full">
+      {label ? (
+        <div className="text-center uppercase text-sm font-bold bg-blue-200 lg:text-base 2xl:text-xl">
+          {label}
+        </div>
+      ) : null}
+      <div className="bg-green-200 w-full h-full relative">
+        <ScalableSVGText
+          text={value}
+          className="absolute bg-green-200 inset-0 w-full h-full object-contain"
+        />
+      </div>
+    </div>
+  );
+};
 
 const StatControl = ({ name }: { name: string }) => {
   const btnClassName =
@@ -249,23 +268,7 @@ const PokerGameFace = () => {
             style={{ gridArea: key }}
             className="flex flex-col items-center"
           >
-            {key === 'title' ? null : (
-              <div className="text-center uppercase text-sm font-bold bg-blue-200 lg:text-base 2xl:text-xl">
-                {value.label}
-              </div>
-            )}
-            <div className="bg-green-200 w-full h-full relative">
-              {key === 'currentTime' ? (
-                <CurrentTimeIndicator />
-              ) : key === 'remainingRoundTime' ? (
-                <RemainingRoundTimeIndicator />
-              ) : (
-                <ScalableSVGText
-                  text={value.text}
-                  className="absolute bg-green-200 inset-0 w-full h-full object-contain"
-                />
-              )}
-            </div>
+            <Stat label={value.label} value={value.text} />
           </div>
         ))}
       </div>
