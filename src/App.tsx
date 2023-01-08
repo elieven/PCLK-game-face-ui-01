@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import {
+  PlusSmallIcon,
+  MinusSmallIcon,
+  AdjustmentsHorizontalIcon,
+  XMarkIcon,
+  PlayIcon
+} from '@heroicons/react/24/outline';
 import './styles.css';
 
 import ScalableSVGText from './components/NewScalableSVGText';
@@ -141,9 +148,115 @@ const CurrentTimeIndicator = () => {
   return <Stat label={areaContent.currentTime.label} value={time} />;
 };
 
+//
+//
+//
+
 const BottomControls = () => {
-  return <div></div>
-}
+  return (
+    <div className="flex justify-center divide-x">
+      {/* Players section */}
+      <section className="flex space-x-6 px-6">
+        <div className="flex flex-col items-center space-y-1">
+          <span>Unique</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <MinusSmallIcon className="w-6 h-6" />
+            </button>
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <PlusSmallIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col items-center space-y-1">
+          <span>Active</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <MinusSmallIcon className="w-6 h-6" />
+            </button>
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <PlusSmallIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      </section>
+      {/* Entries section */}
+      <section className="flex space-x-6 px-6">
+        <div className="flex flex-col items-center space-y-1">
+          <span>Buyin</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <MinusSmallIcon className="w-6 h-6" />
+            </button>
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <PlusSmallIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col items-center space-y-1">
+          <span>Rebuy</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <MinusSmallIcon className="w-6 h-6" />
+            </button>
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <PlusSmallIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col items-center space-y-1">
+          <span>Addon</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <MinusSmallIcon className="w-6 h-6" />
+            </button>
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <PlusSmallIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col items-center space-y-1">
+          <span>Average</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <MinusSmallIcon className="w-6 h-6" />
+            </button>
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <PlusSmallIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      </section>
+      {/* Aditional controls section */}
+      <section className="flex space-x-6 px-6">
+        <div className="flex flex-col items-center space-y-1">
+          <span>Start</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <PlayIcon className="w-6 h-6 relative transform translate-x-px" />
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col items-center space-y-1">
+          <span>Edit</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <AdjustmentsHorizontalIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col items-center space-y-1">
+          <span>End</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <XMarkIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 const PokerGameFace = () => {
   return (
@@ -175,6 +288,7 @@ const PokerGameFace = () => {
           }
         })}
       </div>
+      <BottomControls />
     </div>
   );
 };
