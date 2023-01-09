@@ -258,6 +258,46 @@ const BottomControls = () => {
   );
 };
 
+//
+//
+//
+
+const PayoutsDisplay = ({
+  payouts = [
+    { spot: 1, payoutPercentage: 35 },
+    { spot: 2, payoutPercentage: 22 },
+    { spot: 3, payoutPercentage: 15 },
+    { spot: 4, payoutPercentage: 11 },
+    { spot: 5, payoutPercentage: 9 },
+    { spot: 6, payoutPercentage: 8 }
+  ]
+}: {
+  payouts?: { spot: number; payoutPercentage: number }[];
+}) => {
+  return (
+    <ul className="flex flex-col w-full h-full">
+      {payouts.map(({ spot, payoutPercentage }) => (
+        <li className="grid grid-cols-2 flex-1">
+          <div className="flex items-start bg-gray-300 w-full relative">
+            <ScalableSVGText
+              text={`${spot}.`}
+              className="absolute bg-green-200 inset-0 w-full h-full object-contain"
+            />
+          </div>
+          <div className="flex items-start bg-gray-300 w-full relative">
+            <ScalableSVGText
+              text={`${payoutPercentage.toFixed(2)}%`}
+              className="absolute bg-green-200 inset-0 w-full h-full object-contain"
+            />
+          </div>
+        </li>
+      ))}
+      <li className="grid grid-cols-2 flex-1"></li>
+      <li className="grid grid-cols-2 flex-1"></li>
+    </ul>
+  );
+};
+
 const PokerGameFace = () => {
   return (
     <div className="h-screen flex flex-col p-4 space-y-4 font-bold">
@@ -275,6 +315,16 @@ const PokerGameFace = () => {
               return (
                 <StatCell stat={key} key={key}>
                   <CurrentTimeIndicator />
+                </StatCell>
+              );
+            }
+            case 'payouts': {
+              return (
+                <StatCell stat={key} key={key}>
+                  <div className="text-center uppercase text-sm font-bold bg-blue-200 lg:text-base 2xl:text-xl">
+                    Payouts
+                  </div>
+                  <PayoutsDisplay />
                 </StatCell>
               );
             }
