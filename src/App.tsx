@@ -262,38 +262,43 @@ const BottomControls = () => {
 //
 //
 
+// payouts could be done as {spot, count, percent} where a spot would have the
+// percentage of the chips att he end of the game divided equally between count
+// players. So 1/1/35 would give 35% of the reward to the 1st spot / place
+// winner/s up to the count of 1. So the #1 player would get 35% of the reward.
+// 2/3/22 would for example give 22% of the reward equally divided among the 3
+// people in the 2nd spot so after the 1 person in the #1 spot the next 3 players
+// would get an equal share of the 22%.
 const PayoutsDisplay = ({
   payouts = [
-    { spot: 1, payoutPercentage: 35 },
-    { spot: 2, payoutPercentage: 22 },
-    { spot: 3, payoutPercentage: 15 },
-    { spot: 4, payoutPercentage: 11 },
-    { spot: 5, payoutPercentage: 9 },
-    { spot: 6, payoutPercentage: 8 }
+    { spot: 1, percentage: 35 },
+    { spot: 2, percentage: 22 },
+    { spot: 3, percentage: 15 },
+    { spot: 4, percentage: 11 },
+    { spot: 5, percentage: 9 },
+    { spot: 6, percentage: 8 }
   ]
 }: {
-  payouts?: { spot: number; payoutPercentage: number }[];
+  payouts?: { spot: number; percentage: number }[];
 }) => {
   return (
-    <ul className="flex flex-col w-full h-full">
-      {payouts.map(({ spot, payoutPercentage }) => (
-        <li className="grid grid-cols-2 flex-1">
-          <div className="flex items-start bg-gray-300 w-full relative">
-            <ScalableSVGText
-              text={`${spot}.`}
-              className="absolute bg-green-200 inset-0 w-full h-full object-contain"
-            />
-          </div>
-          <div className="flex items-start bg-gray-300 w-full relative">
-            <ScalableSVGText
-              text={`${payoutPercentage.toFixed(2)}%`}
-              className="absolute bg-green-200 inset-0 w-full h-full object-contain"
-            />
-          </div>
-        </li>
-      ))}
-      <li className="grid grid-cols-2 flex-1"></li>
-      <li className="grid grid-cols-2 flex-1"></li>
+    <ul className="grid h-full w-full gap-2">
+      {payouts.slice(0).map(({ spot, percentage }) => {
+        return (
+          <li className="bg-red-200 relative" key={spot}>
+            <div className="absolute inset-0 w-full h-full flex justify-between">
+              <ScalableSVGText
+                text={`${spot}`}
+                className="h-full bg-yellow-200"
+              />
+              <ScalableSVGText
+                text={percentage.toFixed(2) + '%'}
+                className="h-full bg-yellow-200"
+              />
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 };

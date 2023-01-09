@@ -31,8 +31,6 @@ const ScalableSVGText = ({ text, className }: Props) => {
   return (
     <svg
       ref={ref}
-      width="100%"
-      height="100%"
       viewBox={bbox ? makeViewBox(bbox) : ''}
       className={clsx(className)}
     >
