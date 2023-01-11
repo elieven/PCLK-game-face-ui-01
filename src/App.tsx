@@ -227,6 +227,20 @@ const BottomControls = () => {
           </div>
         </div>
       </section>
+      {/* Level section */}
+      <section className="flex space-x-6 px-6">
+        <div className="flex flex-col items-center space-y-1">
+          <span>Round</span>
+          <div className="flex space-x-2">
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <MinusSmallIcon className="w-6 h-6" />
+            </button>
+            <button className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+              <PlusSmallIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      </section>
       {/* Aditional controls section */}
       <section className="flex space-x-6 px-6">
         <div className="flex flex-col items-center space-y-1">
@@ -274,16 +288,16 @@ const PayoutsDisplay = ({
     { spot: 1, percentage: 35 },
     { spot: 2, percentage: 22 },
     { spot: 3, percentage: 15 },
-    { spot: 4, percentage: 11 },
-    { spot: 5, percentage: 9 },
-    { spot: 6, percentage: 8 }
+    { spot: `4-5`, percentage: 11 },
+    { spot: `6-9`, percentage: 9 },
+    { spot: `10-15`, percentage: `128.500$` }
   ]
 }: {
-  payouts?: { spot: number; percentage: number }[];
+  payouts?: { spot: number | string; percentage: number | string }[];
 }) => {
   return (
     <ul className="grid h-full w-full gap-2">
-      {payouts.slice(0).map(({ spot, percentage }) => {
+      {payouts.slice(0, 6).map(({ spot, percentage }) => {
         return (
           <li className="bg-red-200 relative" key={spot}>
             <div className="absolute inset-0 w-full h-full flex justify-between">
@@ -291,8 +305,13 @@ const PayoutsDisplay = ({
                 text={`${spot}`}
                 className="h-full bg-yellow-200"
               />
+              <ScalableSVGText text="00" className="opacity-0 select-none" />
               <ScalableSVGText
-                text={percentage.toFixed(2) + '%'}
+                text={
+                  typeof percentage === 'number'
+                    ? percentage.toFixed(2) + '%'
+                    : percentage
+                }
                 className="h-full bg-yellow-200"
               />
             </div>
